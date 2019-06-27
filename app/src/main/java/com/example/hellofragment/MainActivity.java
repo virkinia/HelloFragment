@@ -5,15 +5,14 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.LinearLayout;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements HelloFragment.OnHelloFragmentListener {
 
     FragmentManager FM;
     FragmentTransaction FT;
 
-    int frame = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,28 +25,27 @@ public class MainActivity extends AppCompatActivity {
         FT.add(R.id.frameLayout_container, miFragment);
         FT.commit();
 
-        LinearLayout main_linear_layout = findViewById(R.id.main_linear_layout);
-
-        main_linear_layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Fragment miFragment;
-                if (frame == 1 ) {
-                    miFragment = new HelloFragment();
-                    frame = 0;
-
-                } else {
-                    miFragment = new HomeFragment();
-                    frame = 1;
-                }
-
-                FM  = getSupportFragmentManager();
-                FT = FM.beginTransaction();
-                FT.add(R.id.frameLayout_container, miFragment);
-                FT.commit();
+        // LinearLayout main_linear_layout = findViewById(R.id.main_linear_layout);
 
 
-            }
-        });
+    }
+
+    @Override
+    public void clickOnLayer(int value) {
+
+        Fragment miFragment;
+        if (value == 0 ) {
+            miFragment = new HelloFragment();
+
+        } else {
+            miFragment = new HomeFragment();
+
+        }
+
+        FM  = getSupportFragmentManager();
+        FT = FM.beginTransaction();
+        FT.add(R.id.frameLayout_container, miFragment);
+        FT.commit();
+
     }
 }
